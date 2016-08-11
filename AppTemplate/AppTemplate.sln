@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Presentation", "0 - Presentation", "{523C9DFF-98A6-4779-9819-D792B76DE267}"
 EndProject
@@ -28,6 +28,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTemplate.Service", "AppTemplate.Service\AppTemplate.Service.csproj", "{3A99672D-1951-41DD-AAD3-7793D409E8CF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTemplate.Infra.CrossCutting", "AppTemplate.Infra.CrossCutting\AppTemplate.Infra.CrossCutting.csproj", "{745AB204-D101-488B-B707-7EC7F6C3CF9C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Tests", "5 - Tests", "{0D348EBB-C592-487F-96BE-9D8C5464CCEF}"
+	ProjectSection(SolutionItems) = preProject
+		ddl for test.sql = ddl for test.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

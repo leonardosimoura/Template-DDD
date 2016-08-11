@@ -19,6 +19,7 @@ namespace AppTemplate.Infra.Data.Repositories
         public UserTesteRepository(IUnitOfWork unitOfWork):base(unitOfWork)
         {
             _unitOfWork = unitOfWork;
+            _unitOfWork.InitializeConnection(@"Server=DESKTOP-8SJ2DID\SQL2016; Initial Catalog=EstudoDDD;  Persist Security Info=true; User ID=EstudoDDD; Password=789632145@");
         }
 
         public User Add(User obj)
@@ -28,7 +29,7 @@ namespace AppTemplate.Infra.Data.Repositories
                 var conn = (SqlConnection)_unitOfWork.GetConnection();
 
                 _unitOfWork.InitializeTransaction();
-                using (var cmd = (SqlCommand)_unitOfWork.GetSqlCommand("AddUserTeste"))
+                using (var cmd = (SqlCommand)_unitOfWork.GetSqlCommand("AddUsuarioTeste"))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("Name", obj.Name);
@@ -58,7 +59,7 @@ namespace AppTemplate.Infra.Data.Repositories
                 var conn = (SqlConnection)_unitOfWork.GetConnection();
                 var dt = new DataTable();
                 _unitOfWork.InitializeTransaction();
-                using (var cmd = (SqlCommand)_unitOfWork.GetSqlCommand("GetAllUserTeste"))
+                using (var cmd = (SqlCommand)_unitOfWork.GetSqlCommand("GetAllUsuarioTeste"))
                 {
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;

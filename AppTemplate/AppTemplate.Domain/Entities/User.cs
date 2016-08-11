@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LSM.Generic.Repository.Attribute;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,12 +29,13 @@ namespace AppTemplate.Domain.Entities
             Password = password;
         }
 
+        [DtMap("IdUsuario")]
         public int Id { get; set; }
-        
+        [DtMap("Nome")]
         public string Name { get;  set; }
 
         public string  Email { get;  set; }
-
+        [DtMap("Senha")]
         public string Password { get;  set; }
     }
 }

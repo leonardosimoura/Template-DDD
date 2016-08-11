@@ -49,7 +49,7 @@ namespace AppTemplate.Service.Controllers
                 var lista2 = _userTesteService.GetAll();
 
                 var response = Request.CreateResponse<string>(HttpStatusCode.Accepted, "Terminou");
-                //Thread.Sleep(20000);
+                Thread.Sleep(20000);
                 return response;
             }
             catch (Exception ex)

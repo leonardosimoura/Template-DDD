@@ -19,7 +19,7 @@ namespace AppTemplate.Infra.Data.Repositories
         public UserRepository(IUnitOfWork unitOfWork):base(unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _unitOfWork.InitializeConnection(@"Server=54.232.203.19; Initial Catalog=EstudoDDD;  Persist Security Info=true; User ID=LeonardoMoura; Password=Glicemic070073");            
+            _unitOfWork.InitializeConnection(@"Server=DESKTOP-8SJ2DID\SQL2016; Initial Catalog=EstudoDDD;  Persist Security Info=true; User ID=EstudoDDD; Password=789632145@");            
         }
 
         public User Add(User obj)
@@ -29,7 +29,7 @@ namespace AppTemplate.Infra.Data.Repositories
                 var conn = (SqlConnection)_unitOfWork.GetConnection();
 
                 _unitOfWork.InitializeTransaction();
-                using (var cmd = (SqlCommand)_unitOfWork.GetSqlCommand("AddUser"))
+                using (var cmd = (SqlCommand)_unitOfWork.GetSqlCommand("AddUsuario"))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("Name", obj.Name);
@@ -59,7 +59,7 @@ namespace AppTemplate.Infra.Data.Repositories
                 var conn = (SqlConnection)_unitOfWork.GetConnection();
                 var dt = new DataTable();
                 _unitOfWork.InitializeTransaction();
-                using (var cmd = (SqlCommand)_unitOfWork.GetSqlCommand("GetAllUser"))
+                using (var cmd = (SqlCommand)_unitOfWork.GetSqlCommand("GetAllUsuario"))
                 {                  
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     dt.Load(cmd.ExecuteReader());
