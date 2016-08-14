@@ -19,17 +19,14 @@ namespace AppTemplate.Infra.Data.Repositories
         public UserTesteRepository(IUnitOfWork unitOfWork):base(unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _unitOfWork.InitializeConnection(@"Server=DESKTOP-8SJ2DID\SQL2016; Initial Catalog=EstudoDDD;  Persist Security Info=true; User ID=EstudoDDD; Password=789632145@");
+            _unitOfWork.InitializeConnection(GetConnectionString(Connection.Padrao));
         }
 
         public User Add(User obj)
         {
             try
             {
-                var conn = (SqlConnection)_unitOfWork.GetConnection();
-
-                _unitOfWork.InitializeTransaction();
-                using (var cmd = (SqlCommand)_unitOfWork.GetSqlCommand("AddUsuarioTeste"))
+                using (var cmd = _unitOfWork.GetSqlCommand("AddUsuarioTeste"))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("Name", obj.Name);
@@ -43,7 +40,7 @@ namespace AppTemplate.Infra.Data.Repositories
             catch (Exception ex)
             {
                 _unitOfWork.AddNotification(new Domain.Notification.Notification() { Data = DateTime.Now, Message = ex.Message, IsError = true, WhoSend = "Repository" });
-                throw ex;
+                return null;
             }
         }
 
@@ -55,24 +52,19 @@ namespace AppTemplate.Infra.Data.Repositories
         public IEnumerable<User> GetAll()
         {
             try
-            {
-                var conn = (SqlConnection)_unitOfWork.GetConnection();
+            {                
                 var dt = new DataTable();
-                _unitOfWork.InitializeTransaction();
-                using (var cmd = (SqlCommand)_unitOfWork.GetSqlCommand("GetAllUsuarioTeste"))
+                using (var cmd = _unitOfWork.GetSqlCommand("GetAllUsuarioTeste"))
                 {
-
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     dt.Load(cmd.ExecuteReader());
-
-
                 }
                 return DtMapper.DataTableToList<User>(dt);
             }
             catch (Exception ex)
             {
                 _unitOfWork.AddNotification(new Domain.Notification.Notification() { Data = DateTime.Now, Message = ex.Message, IsError = true, WhoSend = "Repository" });
-                throw ex;
+                return null;
             }
 
         }

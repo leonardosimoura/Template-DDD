@@ -1,6 +1,7 @@
 ﻿using AppTemplate.Domain.Entities;
 using AppTemplate.Domain.Interfaces.Repository;
 using AppTemplate.Domain.Interfaces.Service;
+using AppTemplate.Domain.Scopes;
 using AppTemplate.Domain.Transaction.Interface;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,14 @@ namespace AppTemplate.AppService.Service
         public User Add(User obj)
         {
             _unitOfWork.AddNotification(new Domain.Notification.Notification() { Data = DateTime.Now, IsError = false, Message = "Adicionando User", WhoSend = "Application Service" });
-            return _repository.Add(obj);
+
+            _unitOfWork.AddNotificationRange(obj.RegisterScopeIsValid());
+
+            var ret = _repository.Add(obj);
+
+            _unitOfWork.Commit();
+
+            return ret;
         }
 
         public void Dispose()

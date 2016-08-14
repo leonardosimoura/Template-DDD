@@ -19,6 +19,11 @@ namespace AppTemplate.Domain.Notification
             _errors.Add(notification);
         }
 
+        public void AddNotificationRange(IEnumerable<Notification> notifications)
+        {
+            _errors.AddRange(notifications);
+        }
+
         public void ClearNotifications()
         {
             _errors.Clear();

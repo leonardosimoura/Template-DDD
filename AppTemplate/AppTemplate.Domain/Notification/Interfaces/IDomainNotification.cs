@@ -14,6 +14,8 @@ namespace AppTemplate.Domain.Notification.Interfaces
 
         void AddNotification(Notification notification);
 
+        void AddNotificationRange(IEnumerable< Notification> notifications);
+
         IEnumerable<Notification> GetAllNotifications();
 
         IEnumerable<Notification> GetAllErrors();

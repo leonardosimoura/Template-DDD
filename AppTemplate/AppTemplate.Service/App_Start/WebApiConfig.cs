@@ -19,7 +19,8 @@ namespace AppTemplate.Service
             // Modifica a identação
             var jsonSettings = formatters.JsonFormatter.SerializerSettings;
             jsonSettings.Formatting = Formatting.Indented;
-            jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            jsonSettings.ContractResolver = new DefaultContractResolver();
+            //jsonSettings.ContractResolver = new DefaultContractResolver();
 
             // Modifica a serialização
             formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;

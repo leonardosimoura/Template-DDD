@@ -48,7 +48,7 @@
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\UserTesteRepository.cs" />
-    <Compile Include="Transaction\UnitOfWork.cs" />
+    <Compile Include="Transaction\UnitOfWorkSqlServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

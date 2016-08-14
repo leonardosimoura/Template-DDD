@@ -1,6 +1,7 @@
 ﻿using AppTemplate.Domain.Entities;
 
 using AppTemplate.Domain.Interfaces.Service;
+using AppTemplate.Domain.Notification.Interfaces;
 using AppTemplate.Domain.Transaction.Interface;
 using Newtonsoft.Json;
 using System;
@@ -15,53 +16,40 @@ using System.Web.Http;
 namespace AppTemplate.Service.Controllers
 {
     [RoutePrefix("api/userambos")]
-    public class UserAmbosController : ApiController
+    public class UserAmbosController : BaseApiController
     {
         private readonly IUserService _userService;
         private readonly IUserTesteService _userTesteService;
-        private readonly IUnitOfWork _unitOfWork;
-        public UserAmbosController(IUserService userService, IUserTesteService userTesteService, IUnitOfWork unitOfWork)
+        public UserAmbosController(IUserService userService, IUserTesteService userTesteService, IDomainNotification domainNotification) : base(domainNotification)
         {
             _userService = userService;
             _userTesteService = userTesteService;
-            _unitOfWork = unitOfWork;
         }
 
         // GET api/values
         public HttpResponseMessage Get()
         {
-            try
+            for (int i = 0; i < 50; i++)
             {
-                for (int i = 0; i < 50; i++)
-                {
-                    var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
-                    _userService.Add(user);
-                }
-
-                var lista1 = _userService.GetAll();
-
-                for (int i = 0; i < 50; i++)
-                {
-                    var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
-                    _userTesteService.Add(user);
-                }
-
-                var lista2 = _userTesteService.GetAll();
-
-                var response = Request.CreateResponse<string>(HttpStatusCode.Accepted, "Terminou");
-                Thread.Sleep(20000);
-                return response;
+                //var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
+                var user = new User("","", "");
+                _userService.Add(user);
             }
-            catch (Exception ex)
-            {
-                var Notifications = _unitOfWork.GetAllNotifications();
 
-                var Errors = _unitOfWork.GetAllErrors();
+            var lista1 = _userService.GetAll();
 
-                throw ex;
 
-            }
-            
+            //for (int i = 0; i < 50; i++)
+            //{
+            //    var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
+            //    _userTesteService.Add(user);
+            //}
+
+
+
+            //var lista2 = _userTesteService.GetAll();
+            //Thread.Sleep(20000);
+            return CreateResponse(HttpStatusCode.OK, lista1);
         }
 
         // GET api/values/5
@@ -71,7 +59,7 @@ namespace AppTemplate.Service.Controllers
 
             return response;
         }
-        
+
         [Route("GetByEmailAndPassword")]
         public HttpResponseMessage GetByEmailAndPassword([FromBody]string value)
         {

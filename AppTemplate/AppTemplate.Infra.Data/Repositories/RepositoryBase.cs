@@ -18,7 +18,23 @@ namespace AppTemplate.Infra.Data.Repositories
         {
             _unitOfWork = unitOfWork;
         }
-        
+
+        private string[] _Conexoes =
+        {
+               //@"Server=54.232.203.19; Initial Catalog=EstudoDDD;  Persist Security Info=true; User ID=EstudoDDD; Password=789632145@"
+               @"Server=54.232.203.19; Initial Catalog=EstudoDDD;  Persist Security Info=true; User ID=LeonardoMoura; Password=Glicemic070073"
+        };
+
+        public enum Connection
+        {
+            Padrao = 0,
+        }
+
+        public  string GetConnectionString(Connection cs = Connection.Padrao)
+        {
+            return _Conexoes[(int)cs];
+        }
+
 
         public virtual T Add(T obj)
         {
