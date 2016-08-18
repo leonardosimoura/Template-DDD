@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AppTemplate.Domain.Notification;
 using AppTemplate.Domain.Transaction.Interface;
+using System.Data.Common;
 
 namespace AppTemplate.Infra.Data.Transaction
 {
@@ -16,9 +17,9 @@ namespace AppTemplate.Infra.Data.Transaction
         public UnitOfWorkSqlServer(IDomainNotification DomainNotification)
         {
             _DomainNotification = DomainNotification;
-            
+
         }
-        private SqlConnection Connection
+        private DbConnection Connection
         {
             get;
 
@@ -32,7 +33,7 @@ namespace AppTemplate.Infra.Data.Transaction
             set;
         }
 
-        private  SqlTransaction Transaction
+        private DbTransaction Transaction
         {
             get;
 
@@ -45,11 +46,9 @@ namespace AppTemplate.Infra.Data.Transaction
             {
                 if (Transaction != null)
                 {
-                    if (Transaction is SqlTransaction)
-                    {
-                        ((SqlTransaction)Transaction).Commit();
-                        Transaction = null;
-                    }
+                    Transaction.Commit();
+                    Transaction = null;
+
                 }
             }
         }
@@ -59,17 +58,18 @@ namespace AppTemplate.Infra.Data.Transaction
             Commit();
             Transaction = null;
             Connection = null;
-            _DomainNotification.ClearNotifications();
+            _DomainNotification.Clear();
         }
 
-        public void InitializeConnection(string ConnectionString)
+        public void InitializeConnection<TypeConnection>(string ConnectionString) where TypeConnection : DbConnection
         {
             this.ConnectionString = ConnectionString;
             if (Connection == null)
             {
                 if (this.ConnectionString != "")
                 {
-                    Connection = new SqlConnection(this.ConnectionString);
+                    Connection = (TypeConnection)Activator.CreateInstance(typeof(TypeConnection), new object[] { this.ConnectionString });
+                    //Connection = new SqlConnection(this.ConnectionString);
                 }
             }
         }
@@ -80,11 +80,9 @@ namespace AppTemplate.Infra.Data.Transaction
             {
                 if (Transaction == null)
                 {
-                    var conn = (SqlConnection)Connection;
-
-                    if (conn.State == System.Data.ConnectionState.Open)
+                    if (Connection.State == System.Data.ConnectionState.Open)
                     {
-                        Transaction = conn.BeginTransaction();
+                        Transaction = Connection.BeginTransaction();
                     }
                 }
             }
@@ -94,35 +92,35 @@ namespace AppTemplate.Infra.Data.Transaction
         {
             if (Transaction != null)
             {
-                ((SqlTransaction)Transaction).Rollback();
+                Transaction.Rollback();
             }
         }
 
-        public dynamic GetConnection()
+        public DbConnection GetConnection()
         {
             if (Connection != null)
             {
-                if (((SqlConnection)Connection).State == System.Data.ConnectionState.Closed)
+                if (Connection.State == System.Data.ConnectionState.Closed)
                 {
-                    ((SqlConnection)Connection).Open();
+                    Connection.Open();
                 }
             }
-            return (SqlConnection)Connection;
+            return Connection;
         }
 
-        public dynamic GetSqlCommand(string procedure,bool initializeTransaction = true)
+        public TypeCommand GetSqlCommand<TypeCommand>(string procedure, bool initializeTransaction = true) where TypeCommand : DbCommand
         {
-
             if (initializeTransaction == true)
             {
                 GetConnection();
                 InitializeTransaction();
             }
-
-            return new SqlCommand(procedure, (SqlConnection)GetConnection(), (SqlTransaction)GetTransaction());
+            
+            return (TypeCommand)Activator.CreateInstance(typeof(TypeCommand), new object[] { procedure, GetConnection(), GetTransaction() }); ;
+            // return new SqlCommand(procedure, (SqlConnection)GetConnection(), (SqlTransaction)GetTransaction());
         }
 
-        public dynamic GetTransaction()
+        public DbTransaction GetTransaction()
         {
             return Transaction;
         }
@@ -159,7 +157,17 @@ namespace AppTemplate.Infra.Data.Transaction
 
         public void ClearNotifications()
         {
-            _DomainNotification.ClearNotifications();
+            _DomainNotification.Clear();
+        }
+
+        public IEnumerable<Notification> GetAll()
+        {
+            return _DomainNotification.GetAll();
+        }
+
+        public void Clear()
+        {
+            _DomainNotification.Clear();
         }
     }
 }

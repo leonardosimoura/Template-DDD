@@ -43,7 +43,7 @@ namespace AppTemplate.AppService.Service
         {
             _unitOfWork.AddNotification(new Domain.Notification.Notification() { Data = DateTime.Now, IsError = false, Message = "GetAll User", WhoSend = "Application Service" });
             var ret = _repository.GetAll();
-            _unitOfWork.Commit();
+            
             return ret;
         }
 

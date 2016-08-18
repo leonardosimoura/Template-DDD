@@ -24,19 +24,24 @@ namespace AppTemplate.Domain.Notification
             _errors.AddRange(notifications);
         }
 
-        public void ClearNotifications()
+        public void Clear()
         {
             _errors.Clear();
         }
 
         public IEnumerable<Notification> GetAllErrors()
         {
-            return _errors.Where(n => n.IsError == true).ToList();
+            return _errors.Where(n => n.IsError == true).OrderBy( o => o.Data).ToList();
         }
 
         public IEnumerable<Notification> GetAllNotifications()
         {
-            return _errors;
+            return _errors.Where( n => n.IsError == false).OrderBy(o => o.Data).ToList();
+        }
+
+        public IEnumerable<Notification> GetAll()
+        {
+            return _errors.OrderBy(o => o.Data).ToList();
         }
 
         public bool HasError()
@@ -46,7 +51,7 @@ namespace AppTemplate.Domain.Notification
 
         public bool HasNotification()
         {
-            return 0 != _errors.Count();
+            return 0 != _errors.Count(n => n.IsError == false);
         }
     }
 }

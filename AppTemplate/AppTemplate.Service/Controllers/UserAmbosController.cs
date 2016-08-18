@@ -29,12 +29,12 @@ namespace AppTemplate.Service.Controllers
         // GET api/values
         public HttpResponseMessage Get()
         {
-            for (int i = 0; i < 50; i++)
-            {
-                //var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
-                var user = new User("","", "");
-                _userService.Add(user);
-            }
+            //for (int i = 0; i < 50; i++)
+            //{
+            //    //var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
+            //    var user = new User("","", "");
+            //    _userService.Add(user);
+            //}
 
             var lista1 = _userService.GetAll();
 

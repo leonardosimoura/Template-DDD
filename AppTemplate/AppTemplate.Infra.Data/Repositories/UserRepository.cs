@@ -19,14 +19,14 @@ namespace AppTemplate.Infra.Data.Repositories
         public UserRepository(IUnitOfWork unitOfWork):base(unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _unitOfWork.InitializeConnection(GetConnectionString(Connection.Padrao));            
+            _unitOfWork.InitializeConnection<SqlConnection>(GetConnectionString(Connection.Padrao));            
         }
 
         public User Add(User obj)
         {
             try
             {
-                using (var cmd = _unitOfWork.GetSqlCommand("AddUsuario"))
+                using (var cmd = _unitOfWork.GetSqlCommand<SqlCommand>("AddUsuario"))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("Name", obj.Name);
@@ -55,7 +55,7 @@ namespace AppTemplate.Infra.Data.Repositories
             {
                 //throw new Exception("Teste");
                 var dt = new DataTable();
-                using (var cmd = (SqlCommand)_unitOfWork.GetSqlCommand("GetAllUsuario"))
+                using (var cmd = (SqlCommand)_unitOfWork.GetSqlCommand<SqlCommand>("GetAllUsuario"))
                 {                  
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     dt.Load(cmd.ExecuteReader());

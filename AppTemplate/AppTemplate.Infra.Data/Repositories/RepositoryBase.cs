@@ -21,8 +21,7 @@ namespace AppTemplate.Infra.Data.Repositories
 
         private string[] _Conexoes =
         {
-               //@"Server=54.232.203.19; Initial Catalog=EstudoDDD;  Persist Security Info=true; User ID=EstudoDDD; Password=789632145@"
-               @"Server=54.232.203.19; Initial Catalog=EstudoDDD;  Persist Security Info=true; User ID=LeonardoMoura; Password=Glicemic070073"
+               @"Server=DESKTOP-8SJ2DID\SQL2016; Initial Catalog=EstudoDDD;  Persist Security Info=true; User ID=EstudoDDD; Password=789632145@"
         };
 
         public enum Connection

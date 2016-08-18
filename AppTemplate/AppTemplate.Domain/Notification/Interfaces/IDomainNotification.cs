@@ -20,6 +20,8 @@ namespace AppTemplate.Domain.Notification.Interfaces
 
         IEnumerable<Notification> GetAllErrors();
 
-        void ClearNotifications();
+        IEnumerable<Notification> GetAll();
+
+        void Clear();
     }
 }
