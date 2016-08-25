@@ -20,12 +20,12 @@ namespace AppTemplate.Infra.CrossCutting.App_Start
         {
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
-            
+
             InitializeContainer(container);
 
             return container;
         }
-     
+
         private static void InitializeContainer(Container container)
         {
 
@@ -40,9 +40,10 @@ namespace AppTemplate.Infra.CrossCutting.App_Start
             container.Register<IUserService, UserService>(Lifestyle.Scoped);
             container.Register<IUserTesteService, UserTesteService>(Lifestyle.Scoped);
 
-            container.Register<IUnitOfWork, UnitOfWorkSqlServer>(Lifestyle.Scoped);
+            container.Register<IUnitOfWorkTS, UnitOfWorkTS>(Lifestyle.Scoped);
+            container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
             container.Register<IDomainNotification, DomainNotification>(Lifestyle.Scoped);
-            
+
 
 
 

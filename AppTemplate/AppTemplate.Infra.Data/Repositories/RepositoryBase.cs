@@ -12,11 +12,19 @@ namespace AppTemplate.Infra.Data.Repositories
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        private readonly IUnitOfWork _unitOfWork;
+        //private readonly IUnitOfWork _unitOfWork;
         private readonly IDomainNotification _domainNotification;
-        public RepositoryBase(IUnitOfWork unitOfWork)
+        private readonly IUnitOfWorkTS _unitOfWorkTS;
+
+        //public RepositoryBase(IUnitOfWork unitOfWork)
+        //{
+        //    _unitOfWork = unitOfWork;
+        //}
+
+        public RepositoryBase(IUnitOfWorkTS unitOfWorkTS)
         {
-            _unitOfWork = unitOfWork;
+
+            _unitOfWorkTS = unitOfWorkTS;
         }
 
         private string[] _Conexoes =
@@ -42,7 +50,15 @@ namespace AppTemplate.Infra.Data.Repositories
 
         public virtual void Dispose()
         {
-            _unitOfWork.Dispose();
+            //if (_unitOfWork != null)
+            //{
+            //    _unitOfWork.Dispose();
+            //}
+
+            if (_unitOfWorkTS != null)
+            {
+                _unitOfWorkTS.Dispose();
+            }
         }
 
         public virtual IEnumerable<T> GetAll()

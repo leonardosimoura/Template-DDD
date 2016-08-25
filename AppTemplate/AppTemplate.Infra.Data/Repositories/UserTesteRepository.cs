@@ -15,27 +15,32 @@ namespace AppTemplate.Infra.Data.Repositories
 {
     public class UserTesteRepository : RepositoryBase<User>, IUserTesteRepository
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public UserTesteRepository(IUnitOfWork unitOfWork):base(unitOfWork)
+        private readonly IUnitOfWorkTS _unitOfWork;
+        public UserTesteRepository(IUnitOfWorkTS unitOfWork):base(unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _unitOfWork.InitializeConnection<SqlConnection>(GetConnectionString(Connection.Padrao));
+            _unitOfWork.Begin();
         }
 
         public User Add(User obj)
         {
             try
             {
-                using (var cmd = _unitOfWork.GetSqlCommand<SqlCommand>("AddUsuarioTeste"))
+                using (var conn = new SqlConnection(GetConnectionString(Connection.Padrao)))
                 {
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("Name", obj.Name);
-                    cmd.Parameters.AddWithValue("Email", obj.Email);
-                    cmd.Parameters.AddWithValue("Password", obj.Password);
-                    cmd.ExecuteNonQuery();
+                    conn.Open();
+                    using (var cmd = new SqlCommand("AddUsuarioTeste", conn))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("Name", obj.Name);
+                        cmd.Parameters.AddWithValue("Email", obj.Email);
+                        cmd.Parameters.AddWithValue("Password", obj.Password);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
 
                 return obj;
+
             }
             catch (Exception ex)
             {
@@ -52,13 +57,19 @@ namespace AppTemplate.Infra.Data.Repositories
         public IEnumerable<User> GetAll()
         {
             try
-            {                
+            {
                 var dt = new DataTable();
-                using (var cmd = _unitOfWork.GetSqlCommand<SqlCommand>("GetAllUsuarioTeste"))
+
+                using (var conn = new SqlConnection(GetConnectionString(Connection.Padrao)))
                 {
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    dt.Load(cmd.ExecuteReader());
+                    conn.Open();
+                    using (var cmd = new SqlCommand("GetAllUsuarioTeste", conn))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        dt.Load(cmd.ExecuteReader());
+                    }
                 }
+
                 return DtMapper.DataTableToList<User>(dt);
             }
             catch (Exception ex)
@@ -66,7 +77,6 @@ namespace AppTemplate.Infra.Data.Repositories
                 _unitOfWork.AddNotification(new Domain.Notification.Notification() { Data = DateTime.Now, Message = ex.Message, IsError = true, WhoSend = "Repository" });
                 return null;
             }
-
         }
 
         public User GetById(object id)

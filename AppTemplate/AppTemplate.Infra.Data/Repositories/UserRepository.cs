@@ -15,27 +15,33 @@ namespace AppTemplate.Infra.Data.Repositories
 {
     public class UserRepository : RepositoryBase<User>, IUserRepository
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public UserRepository(IUnitOfWork unitOfWork):base(unitOfWork)
+        private readonly IUnitOfWorkTS _unitOfWork;
+        
+        public UserRepository(IUnitOfWorkTS unitOfWork):base(unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _unitOfWork.InitializeConnection<SqlConnection>(GetConnectionString(Connection.Padrao));            
+            _unitOfWork.Begin();
         }
 
         public User Add(User obj)
         {
             try
             {
-                using (var cmd = _unitOfWork.GetSqlCommand<SqlCommand>("AddUsuario"))
+                using (var conn = new SqlConnection(GetConnectionString(Connection.Padrao)))
                 {
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("Name", obj.Name);
-                    cmd.Parameters.AddWithValue("Email", obj.Email);
-                    cmd.Parameters.AddWithValue("Password", obj.Password);
-                    cmd.ExecuteNonQuery();
+                    conn.Open();
+                    using (var cmd = new SqlCommand("AddUsuario", conn))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("Name", obj.Name);
+                        cmd.Parameters.AddWithValue("Email", obj.Email);
+                        cmd.Parameters.AddWithValue("Password", obj.Password);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
 
                 return obj;
+
             }
             catch (Exception ex)
             {
@@ -53,12 +59,16 @@ namespace AppTemplate.Infra.Data.Repositories
         {
             try
             {
-                //throw new Exception("Teste");
                 var dt = new DataTable();
-                using (var cmd = (SqlCommand)_unitOfWork.GetSqlCommand<SqlCommand>("GetAllUsuario"))
-                {                  
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    dt.Load(cmd.ExecuteReader());
+                
+                using (var conn = new SqlConnection(GetConnectionString(Connection.Padrao)))
+                {
+                    conn.Open();
+                    using (var cmd = new SqlCommand("GetAllUsuario", conn))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        dt.Load(cmd.ExecuteReader());
+                    }
                 }
 
                 return DtMapper.DataTableToList<User>(dt);

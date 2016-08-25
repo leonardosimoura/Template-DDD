@@ -9,6 +9,8 @@ namespace AppTemplate.Domain.Scopes
 {
     public static class UserScope
     {
+
+        // Todo: Melhorar para retornar apenas um bool e conseguir inserir as Notifications
         public static IEnumerable<Notification.Notification> RegisterScopeIsValid(this User user)
         {
             var lista = new List<Notification.Notification>();

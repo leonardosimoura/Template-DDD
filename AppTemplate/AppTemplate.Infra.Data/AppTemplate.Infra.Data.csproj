@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,7 +49,8 @@
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\UserTesteRepository.cs" />
-    <Compile Include="Transaction\UnitOfWorkSqlServer.cs" />
+    <Compile Include="Transaction\UnitOfWork.cs" />
+    <Compile Include="Transaction\UnitOfWorkTS.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

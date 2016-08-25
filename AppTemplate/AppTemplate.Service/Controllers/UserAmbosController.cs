@@ -29,35 +29,25 @@ namespace AppTemplate.Service.Controllers
         // GET api/values
         public HttpResponseMessage Get()
         {
-            //for (int i = 0; i < 50; i++)
-            //{
-            //    //var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
-            //    var user = new User("","", "");
-            //    _userService.Add(user);
-            //}
+            // Teste 
+            for (int i = 0; i < 10; i++)
+            {
+                //var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
+                var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
+                _userService.Add(user);
+            }
 
             var lista1 = _userService.GetAll();
 
-
-            //for (int i = 0; i < 50; i++)
-            //{
-            //    var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
-            //    _userTesteService.Add(user);
-            //}
-
-
-
-            //var lista2 = _userTesteService.GetAll();
+            for (int i = 0; i < 10; i++)
+            {
+                var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
+                _userTesteService.Add(user);
+            }
+            
+            var lista2 = _userTesteService.GetAll();
             //Thread.Sleep(20000);
             return CreateResponse(HttpStatusCode.OK, lista1);
-        }
-
-        // GET api/values/5
-        public HttpResponseMessage Get(int id)
-        {
-            var response = Request.CreateResponse<string>(HttpStatusCode.Accepted, JsonConvert.SerializeObject(_userService.GetById(id)));
-
-            return response;
         }
 
         [Route("GetByEmailAndPassword")]
@@ -72,37 +62,12 @@ namespace AppTemplate.Service.Controllers
 
                 var user = JsonConvert.DeserializeObject<User>(value);
 
-                return Request.CreateResponse<string>(HttpStatusCode.Accepted, JsonConvert.SerializeObject(_userService.GetByEmailAndPassword(user.Email, user.Password)));
+                return CreateResponse(HttpStatusCode.OK, _userService.GetByEmailAndPassword(user.Email, user.Password));
             }
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
-        }
-
-
-        // POST api/values
-        public HttpResponseMessage Post([FromBody]string value)
-        {
-            var response = Request.CreateResponse(HttpStatusCode.Accepted);
-
-            return response;
-        }
-
-        // PUT api/values/5
-        public HttpResponseMessage Put(int id, [FromBody]string value)
-        {
-            var response = Request.CreateResponse(HttpStatusCode.Accepted);
-
-            return response;
-        }
-
-        // DELETE api/values/5
-        public HttpResponseMessage Delete(int id)
-        {
-            var response = Request.CreateResponse(HttpStatusCode.Accepted);
-
-            return response;
         }
     }
 }

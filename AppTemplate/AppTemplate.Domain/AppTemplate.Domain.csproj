@@ -56,7 +56,8 @@
     <Compile Include="Notification\Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scopes\UserScope.cs" />
-    <Compile Include="Transaction\Interface\IUnitOfWorkSqlServer.cs" />
+    <Compile Include="Transaction\Interface\IUnitOfWork.cs" />
+    <Compile Include="Transaction\Interface\IUnitOfWorkTS.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
