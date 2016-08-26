@@ -2,6 +2,7 @@
 
 using AppTemplate.Domain.Interfaces.Service;
 using AppTemplate.Domain.Notification.Interfaces;
+using AppTemplate.Domain.Transaction.Interface;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -28,28 +29,39 @@ namespace AppTemplate.Service.Controllers
         // GET api/values
         public HttpResponseMessage Get()
         {
-            for (int i = 0; i < 50; i++)
+            // Teste 
+            for (int i = 0; i < 10; i++)
             {
+                //var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
                 var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
                 _userService.Add(user);
             }
 
             var lista1 = _userService.GetAll();
 
+            for (int i = 0; i < 10; i++)
+            {
+                var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
+                _userTesteService.Add(user);
+            }
+            
+            var lista2 = _userTesteService.GetAll();
+            //Thread.Sleep(20000);
             return CreateResponse(HttpStatusCode.OK, lista1);
         }
 
+        [HttpPost]
         [Route("GetByEmailAndPassword")]
-        public HttpResponseMessage GetByEmailAndPassword([FromBody]string value)
+        public HttpResponseMessage GetByEmailAndPassword(User user)
         {
-            if (value == null || value == "")
+            try
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "Não foi passado nenhum parametro.");
+                return CreateResponse(HttpStatusCode.OK, _userService.GetByEmailAndPassword(user.Email, user.Password));
             }
-
-            var user = JsonConvert.DeserializeObject<User>(value);
-
-            return CreateResponse(HttpStatusCode.OK, _userService.GetByEmailAndPassword(user.Email, user.Password));
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
     }
 }
