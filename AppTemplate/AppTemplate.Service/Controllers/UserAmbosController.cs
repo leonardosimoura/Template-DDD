@@ -50,18 +50,12 @@ namespace AppTemplate.Service.Controllers
             return CreateResponse(HttpStatusCode.OK, lista1);
         }
 
+        [HttpPost]
         [Route("GetByEmailAndPassword")]
-        public HttpResponseMessage GetByEmailAndPassword([FromBody]string value)
+        public HttpResponseMessage GetByEmailAndPassword(User user)
         {
             try
             {
-                if (value == null || value == "")
-                {
-                    return Request.CreateResponse(HttpStatusCode.BadRequest, "Não foi passado nenhum parametro.");
-                }
-
-                var user = JsonConvert.DeserializeObject<User>(value);
-
                 return CreateResponse(HttpStatusCode.OK, _userService.GetByEmailAndPassword(user.Email, user.Password));
             }
             catch (Exception ex)
