@@ -12,8 +12,8 @@ namespace AppTemplate.AppService.Service
     public class ServiceBase<T> : IDisposable,IServiceBase<T> where T : class
     {
         private readonly IRepositoryBase<T> _repostory;
-        private readonly IUnitOfWork _unitOfWork;
-        public ServiceBase(IRepositoryBase<T> repostory, IUnitOfWork unitOfWork)
+        private readonly IUnitOfWorkTS _unitOfWork;
+        public ServiceBase(IRepositoryBase<T> repostory, IUnitOfWorkTS unitOfWork)
         {
             _repostory = repostory;
             _unitOfWork = unitOfWork;
@@ -52,10 +52,6 @@ namespace AppTemplate.AppService.Service
         {
             _unitOfWork.Commit();
         }
-
-        public void Rollback()
-        {
-            _unitOfWork.Rollback();
-        }
+        
     }
 }

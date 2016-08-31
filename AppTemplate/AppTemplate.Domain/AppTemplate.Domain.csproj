@@ -47,10 +47,8 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Interfaces\Repository\IRepositoryBase.cs" />
     <Compile Include="Interfaces\Repository\IUserRepository.cs" />
-    <Compile Include="Interfaces\Repository\IUserTesteRepository.cs" />
     <Compile Include="Interfaces\Service\IServiceBase.cs" />
     <Compile Include="Interfaces\Service\IUserService.cs" />
-    <Compile Include="Interfaces\Service\IUserTesteService.cs" />
     <Compile Include="Notification\DomainNotification.cs" />
     <Compile Include="Notification\Interfaces\IDomainNotification.cs" />
     <Compile Include="Notification\Notification.cs" />

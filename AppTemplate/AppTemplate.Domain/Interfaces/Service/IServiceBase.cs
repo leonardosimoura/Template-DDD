@@ -19,5 +19,7 @@ namespace AppTemplate.Domain.Interfaces.Service
         void Remove(T obj);
 
         void Dispose();
+
+        void Commit();
     }
 }

@@ -19,49 +19,42 @@ namespace AppTemplate.Service.Controllers
     public class UserController : BaseApiController
     {
         private readonly IUserService _userService;
-        private readonly IUserTesteService _userTesteService;
-        public UserController(IUserService userService, IUserTesteService userTesteService, IDomainNotification domainNotification) : base(domainNotification)
+        private readonly IUnitOfWorkTS _unitOfWork;
+
+        public UserController(IUserService userService, IUnitOfWorkTS unitOfWork) : base(unitOfWork)
         {
             _userService = userService;
-            _userTesteService = userTesteService;
+            _unitOfWork = unitOfWork;
         }
 
         // GET api/values
         public HttpResponseMessage Get()
         {
+
+            var listaAdd1 = new List<User>();
             // Teste 
             for (int i = 0; i < 10; i++)
             {
-                //var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
-                var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
-                _userService.Add(user);
+                
+                var user = new User("Leonardo", "leonardo@evoluaeducacao.com.br","password");
+                //var user = new User("Leonardo", "leonardo.com.br", "password");
+                listaAdd1.Add(user);
             }
 
-            var lista1 = _userService.GetAll();
+            _userService.AddRange(listaAdd1);
 
-            for (int i = 0; i < 10; i++)
-            {
-                var user = new User("Leonardo " + i, "leo" + i + "@leo" + i + ".com.br", "PWD");
-                _userTesteService.Add(user);
-            }
-            
-            var lista2 = _userTesteService.GetAll();
-            //Thread.Sleep(20000);
-            return CreateResponse(HttpStatusCode.OK, lista1);
+            var lista = _userService.GetAll();
+
+            _unitOfWork.Commit();
+
+            return CreateResponse(HttpStatusCode.OK, lista);
         }
 
         [HttpPost]
         [Route("GetByEmailAndPassword")]
         public HttpResponseMessage GetByEmailAndPassword(User user)
         {
-            try
-            {
-                return CreateResponse(HttpStatusCode.OK, _userService.GetByEmailAndPassword(user.Email, user.Password));
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
-            }
+            return CreateResponse(HttpStatusCode.OK, _userService.GetByEmailAndPassword(user.Email, user.Password));
         }
     }
 }

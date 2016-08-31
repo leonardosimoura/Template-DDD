@@ -35,18 +35,12 @@ namespace AppTemplate.Infra.CrossCutting.App_Start
 
             // For instance:
             container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
-            container.Register<IUserTesteRepository, UserTesteRepository>(Lifestyle.Scoped);
 
             container.Register<IUserService, UserService>(Lifestyle.Scoped);
-            container.Register<IUserTesteService, UserTesteService>(Lifestyle.Scoped);
 
             container.Register<IUnitOfWorkTS, UnitOfWorkTS>(Lifestyle.Scoped);
             container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
             container.Register<IDomainNotification, DomainNotification>(Lifestyle.Scoped);
-
-
-
-
         }
     }
 }

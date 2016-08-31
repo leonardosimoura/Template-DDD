@@ -43,5 +43,6 @@ namespace AppTemplate.Domain.Notification
         public string Message { get; set; }
 
         public bool IsError { get; set; }
+
     }
 }

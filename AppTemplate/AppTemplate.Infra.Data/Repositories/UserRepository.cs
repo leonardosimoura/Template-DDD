@@ -59,6 +59,12 @@ namespace AppTemplate.Infra.Data.Repositories
         {
             try
             {
+                //Opcional fazer vai da regra do projeto
+                if (_unitOfWork.HasError())
+                {
+                    return null;
+                }
+
                 var dt = new DataTable();
                 
                 using (var conn = new SqlConnection(GetConnectionString(Connection.Padrao)))

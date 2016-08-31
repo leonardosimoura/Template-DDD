@@ -14,11 +14,19 @@ namespace AppTemplate.AppService.Service
     public class UserService : ServiceBase<User>, IUserService
     {
         private readonly IUserRepository _repository;
-        private readonly IUnitOfWork _unitOfWork;
-        public UserService(IUserRepository repository, IUnitOfWork unitOfWork) :base(repository, unitOfWork)
+        private readonly IUnitOfWorkTS _unitOfWork;
+        public UserService(IUserRepository repository, IUnitOfWorkTS unitOfWork) :base(repository, unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
+        }
+
+        public void AddRange(IEnumerable<User> lista)
+        {
+            foreach (var item in lista)
+            {
+                Add(item);
+            }
         }
 
         public User Add(User obj)
@@ -28,9 +36,7 @@ namespace AppTemplate.AppService.Service
             _unitOfWork.AddNotificationRange(obj.RegisterScopeIsValid());
 
             var ret = _repository.Add(obj);
-
-            _unitOfWork.Commit();
-
+            
             return ret;
         }
 

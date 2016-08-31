@@ -43,7 +43,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\ServiceBase.cs" />
     <Compile Include="Service\UserService.cs" />
-    <Compile Include="Service\UserTesteService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppTemplate.Domain\AppTemplate.Domain.csproj">

@@ -22,7 +22,18 @@ namespace AppTemplate.Infra.Data.Transaction
 
         public void Dispose()
         {
-            scope.Dispose();
+            if (scope != null)
+            {
+                if (_DomainNotification.HasError() == false)
+                {
+                    Commit();
+                }
+                else
+                {
+                    scope.Dispose();
+                    scope = null;
+                }                
+            }           
             _DomainNotification.Clear();
         }
 
@@ -36,7 +47,15 @@ namespace AppTemplate.Infra.Data.Transaction
 
         public void Commit()
         {
-            scope.Complete();
+            if (scope != null)
+            {
+                if (!_DomainNotification.HasError())
+                {
+                    scope.Complete();
+                    scope.Dispose();
+                    scope = null;
+                }
+            }            
         }
 
         public bool HasError()

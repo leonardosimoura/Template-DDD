@@ -48,7 +48,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Repositories\UserTesteRepository.cs" />
     <Compile Include="Transaction\UnitOfWork.cs" />
     <Compile Include="Transaction\UnitOfWorkTS.cs" />
   </ItemGroup>
