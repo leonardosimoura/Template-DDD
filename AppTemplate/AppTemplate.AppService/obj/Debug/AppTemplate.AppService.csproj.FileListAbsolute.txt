@@ -1,8 +1,0 @@
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.AppService\bin\Debug\AppTemplate.AppService.dll
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.AppService\bin\Debug\AppTemplate.AppService.pdb
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.AppService\bin\Debug\AppTemplate.Domain.dll
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.AppService\bin\Debug\LSM.Generic.Repository.dll
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.AppService\bin\Debug\AppTemplate.Domain.pdb
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.AppService\obj\Debug\AppTemplate.AppService.csprojResolveAssemblyReference.cache
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.AppService\obj\Debug\AppTemplate.AppService.dll
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.AppService\obj\Debug\AppTemplate.AppService.pdb

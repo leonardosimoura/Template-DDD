@@ -1,8 +1,0 @@
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.Infra.Data\bin\Debug\AppTemplate.Infra.Data.dll
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.Infra.Data\bin\Debug\AppTemplate.Infra.Data.pdb
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.Infra.Data\bin\Debug\AppTemplate.Domain.dll
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.Infra.Data\bin\Debug\LSM.Generic.Repository.dll
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.Infra.Data\bin\Debug\AppTemplate.Domain.pdb
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.Infra.Data\obj\Debug\AppTemplate.Infra.Data.csprojResolveAssemblyReference.cache
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.Infra.Data\obj\Debug\AppTemplate.Infra.Data.dll
-D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.Infra.Data\obj\Debug\AppTemplate.Infra.Data.pdb
