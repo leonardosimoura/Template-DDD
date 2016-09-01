@@ -17,6 +17,12 @@ namespace AppTemplate.Service.Controllers
             _domainNotication = domainNotication;
         }
 
+        /// <summary>
+        /// Cria o ResponseMessage analisando se ocorreram erros ou não
+        /// </summary>
+        /// <param name="statusCode">HttpStatusCode a ser retornado em caso de sucesso</param>
+        /// <param name="obj">O objeto que deve ser retornado</param>
+        /// <returns>HttpResponseMessage</returns>
         public HttpResponseMessage CreateResponse(HttpStatusCode statusCode = HttpStatusCode.OK,object obj = null)
         {
             HttpResponseMessage response;

@@ -11,7 +11,6 @@ namespace AppTemplate.Service
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
             // Remove o XML
             var formatters = config.Formatters;
             formatters.Remove(formatters.XmlFormatter);
@@ -19,8 +18,7 @@ namespace AppTemplate.Service
             // Modifica a identação
             var jsonSettings = formatters.JsonFormatter.SerializerSettings;
             jsonSettings.Formatting = Formatting.Indented;
-            jsonSettings.ContractResolver = new DefaultContractResolver();
-            //jsonSettings.ContractResolver = new DefaultContractResolver();
+            jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             // Modifica a serialização
             formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;

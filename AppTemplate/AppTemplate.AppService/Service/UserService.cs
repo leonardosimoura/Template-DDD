@@ -31,10 +31,14 @@ namespace AppTemplate.AppService.Service
 
         public User Add(User obj)
         {
-            _unitOfWork.AddNotification(new Domain.Notification.Notification() { Data = DateTime.Now, IsError = false, Message = "Adicionando User", WhoSend = "Application Service" });
+            _unitOfWork.AddNotification(new Domain.Notification.Notification("Adicionando User", "Application Service",false));
 
-            _unitOfWork.AddNotificationRange(obj.RegisterScopeIsValid());
-
+            //Opcional fazer um if aqui para proseguir
+            if (obj.RegisterScopeIsValid(_unitOfWork))
+            {
+                obj.Register();
+            }
+            
             var ret = _repository.Add(obj);
             
             return ret;
@@ -47,7 +51,7 @@ namespace AppTemplate.AppService.Service
 
         public IEnumerable<User> GetAll()
         {
-            _unitOfWork.AddNotification(new Domain.Notification.Notification() { Data = DateTime.Now, IsError = false, Message = "GetAll User", WhoSend = "Application Service" });
+            _unitOfWork.AddNotification(new Domain.Notification.Notification("GetAll User", "Application Service",false));
             var ret = _repository.GetAll();
             
             return ret;

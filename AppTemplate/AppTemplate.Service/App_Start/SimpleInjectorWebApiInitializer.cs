@@ -9,7 +9,7 @@ namespace AppTemplate.Service.App_Start
     public static class SimpleInjectorWebApiInitializer
     {
         /// <summary>Initialize the container and register it as Web API Dependency Resolver.</summary>
-        public static void Initialize()
+        public static Container Initialize()
         {
             var container = AppTemplate.Infra.CrossCutting.App_Start.SimpleInjectorWebApiInitializer.Initialize();
 
@@ -19,6 +19,8 @@ namespace AppTemplate.Service.App_Start
             
             GlobalConfiguration.Configuration.DependencyResolver =
                 new SimpleInjectorWebApiDependencyResolver(container);
+
+            return container;
         }
     }
 }

@@ -45,8 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Interfaces\Repository\IAutenticacaoApiRepository.cs" />
     <Compile Include="Interfaces\Repository\IRepositoryBase.cs" />
     <Compile Include="Interfaces\Repository\IUserRepository.cs" />
+    <Compile Include="Interfaces\Service\IAutenticacaoApiService.cs" />
     <Compile Include="Interfaces\Service\IServiceBase.cs" />
     <Compile Include="Interfaces\Service\IUserService.cs" />
     <Compile Include="Notification\DomainNotification.cs" />

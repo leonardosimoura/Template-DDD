@@ -27,6 +27,12 @@ namespace AppTemplate.Infra.Data.Repositories
         {
             try
             {
+                //Opcional fazer vai da regra do projeto
+                if (_unitOfWork.HasError())
+                {
+                    return null;
+                }
+
                 using (var conn = new SqlConnection(GetConnectionString(Connection.Padrao)))
                 {
                     conn.Open();
@@ -36,6 +42,7 @@ namespace AppTemplate.Infra.Data.Repositories
                         cmd.Parameters.AddWithValue("Name", obj.Name);
                         cmd.Parameters.AddWithValue("Email", obj.Email);
                         cmd.Parameters.AddWithValue("Password", obj.Password);
+                        cmd.Parameters.AddWithValue("RegisterDate", obj.RegisterDate);
                         cmd.ExecuteNonQuery();
                     }
                 }

@@ -19,7 +19,8 @@ namespace AppTemplate.Infra.CrossCutting.App_Start
         public static Container Initialize()
         {
             var container = new Container();
-            container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
+
+            container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle(); 
 
             InitializeContainer(container);
 
@@ -35,8 +36,10 @@ namespace AppTemplate.Infra.CrossCutting.App_Start
 
             // For instance:
             container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
+            container.Register<IAutenticacaoApiRepository, AutenticacaoApiRepository>(Lifestyle.Transient);
 
             container.Register<IUserService, UserService>(Lifestyle.Scoped);
+            container.Register<IAutenticacaoApiService, AutenticacaoApiService>(Lifestyle.Transient);
 
             container.Register<IUnitOfWorkTS, UnitOfWorkTS>(Lifestyle.Scoped);
             container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);

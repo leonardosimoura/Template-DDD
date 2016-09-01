@@ -1,5 +1,4 @@
 ﻿using AppTemplate.Domain.Entities;
-
 using AppTemplate.Domain.Interfaces.Service;
 using AppTemplate.Domain.Notification.Interfaces;
 using AppTemplate.Domain.Transaction.Interface;
@@ -31,20 +30,36 @@ namespace AppTemplate.Service.Controllers
         public HttpResponseMessage Get()
         {
 
-            var listaAdd1 = new List<User>();
+            var listaAdd = new List<User>();
+
             // Teste 
             for (int i = 0; i < 10; i++)
             {
-                
                 var user = new User("Leonardo", "leonardo@evoluaeducacao.com.br","password");
                 //var user = new User("Leonardo", "leonardo.com.br", "password");
-                listaAdd1.Add(user);
+                listaAdd.Add(user);
             }
 
-            _userService.AddRange(listaAdd1);
+            //Adiciona todos da lista
+            _userService.AddRange(listaAdd);
+            
+            //Limpa a lista
+            listaAdd.Clear();
 
+            for (int i = 0; i < 10; i++)
+            {
+                //var user = new User("Leonardo", "leonardo@evoluaeducacao.com.br","password");
+                var user = new User("Evolua", "evolua@evoluaeducacao.com.br", "password",DateTime.Now);
+                listaAdd.Add(user);
+            }
+
+            //Adiciona todos da lista
+            _userService.AddRange(listaAdd);
+
+            //Busca todos os usuários
             var lista = _userService.GetAll();
 
+            //Faz o commit de todas as ações executadas
             _unitOfWork.Commit();
 
             return CreateResponse(HttpStatusCode.OK, lista);
