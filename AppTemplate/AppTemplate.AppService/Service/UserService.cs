@@ -1,7 +1,7 @@
 ﻿using AppTemplate.Domain.Entities;
 using AppTemplate.Domain.Interfaces.Repository;
 using AppTemplate.Domain.Interfaces.Service;
-using AppTemplate.Domain.Scopes;
+using AppTemplate.Domain.Scope;
 using AppTemplate.Domain.Transaction.Interface;
 using System;
 using System.Collections.Generic;

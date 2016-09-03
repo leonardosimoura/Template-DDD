@@ -1,0 +1,5 @@
+D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.Domain\bin\Debug\AppTemplate.Domain.dll
+D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.Domain\bin\Debug\AppTemplate.Domain.pdb
+D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.Domain\bin\Debug\LSM.Generic.Repository.dll
+D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.Domain\obj\Debug\AppTemplate.Domain.dll
+D:\GitHub Repositories\Template-DDD\AppTemplate\AppTemplate.Domain\obj\Debug\AppTemplate.Domain.pdb

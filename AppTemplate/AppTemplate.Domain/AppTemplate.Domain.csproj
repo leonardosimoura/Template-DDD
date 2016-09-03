@@ -55,7 +55,7 @@
     <Compile Include="Notification\Interfaces\IDomainNotification.cs" />
     <Compile Include="Notification\Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scopes\UserScope.cs" />
+    <Compile Include="Scope\UserScope.cs" />
     <Compile Include="Transaction\Interface\IUnitOfWork.cs" />
     <Compile Include="Transaction\Interface\IUnitOfWorkTS.cs" />
   </ItemGroup>
