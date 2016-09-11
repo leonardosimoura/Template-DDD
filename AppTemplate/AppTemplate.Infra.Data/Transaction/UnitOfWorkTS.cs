@@ -52,7 +52,7 @@ namespace AppTemplate.Infra.Data.Transaction
                 if (!_DomainNotification.HasError())
                 {
                     scope.Complete();
-                    scope.Dispose();
+                    //scope.Dispose();
                     scope = null;
                 }
             }            

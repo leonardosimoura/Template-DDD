@@ -14,9 +14,13 @@ namespace AppTemplate.Service.App_Start
             var container = AppTemplate.Infra.CrossCutting.App_Start.SimpleInjectorWebApiInitializer.Initialize();
 
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
-       
-            container.Verify();
+
             
+
+            container.Verify();
+
+            
+
             GlobalConfiguration.Configuration.DependencyResolver =
                 new SimpleInjectorWebApiDependencyResolver(container);
 

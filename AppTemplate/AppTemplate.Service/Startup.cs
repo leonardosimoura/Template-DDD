@@ -12,6 +12,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using SimpleInjector;
+using SimpleInjector.Extensions.ExecutionContextScoping;
+using SimpleInjector.Integration.WebApi;
 
 namespace AppTemplate.Service
 {
@@ -24,7 +26,7 @@ namespace AppTemplate.Service
             HttpConfiguration config = new HttpConfiguration();
 
             var container = SimpleInjectorWebApiInitializer.Initialize();
-            
+            config.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
             ConfigureWebApi(config);
             //Arumar Aqui oh
             var service = container.GetInstance<IAutenticacaoApiService>();
@@ -32,6 +34,12 @@ namespace AppTemplate.Service
 
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
+            //app.Use(async (context, next) => {
+            //    using (container.BeginExecutionContextScope())
+            //    {
+            //        await next();
+            //    }
+            //});
         }
 
         public static void ConfigureWebApi(HttpConfiguration config)

@@ -13,6 +13,7 @@ namespace AppTemplate.Infra.CrossCutting.App_Start
     using Domain.Notification;
     using Domain.Notification.Interfaces;
     using Domain.Transaction.Interface;
+    using SimpleInjector.Extensions.ExecutionContextScoping;
     public static class SimpleInjectorWebApiInitializer
     {
         /// <summary>Initialize the container and register it as Web API Dependency Resolver.</summary>
@@ -21,6 +22,7 @@ namespace AppTemplate.Infra.CrossCutting.App_Start
             var container = new Container();
 
             container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle(); 
+            //container.Options.DefaultScopedLifestyle = new ExecutionContextScopeLifestyle();
 
             InitializeContainer(container);
 
@@ -34,7 +36,7 @@ namespace AppTemplate.Infra.CrossCutting.App_Start
 
             container.Register(typeof(IServiceBase<>), typeof(ServiceBase<>));
 
-            // For instance:
+            //For instance:
             container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
             container.Register<IAutenticacaoApiRepository, AutenticacaoApiRepository>(Lifestyle.Transient);
 
@@ -44,6 +46,17 @@ namespace AppTemplate.Infra.CrossCutting.App_Start
             container.Register<IUnitOfWorkTS, UnitOfWorkTS>(Lifestyle.Scoped);
             container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
             container.Register<IDomainNotification, DomainNotification>(Lifestyle.Scoped);
+
+            //container.RegisterWebApiRequest<IUserRepository, UserRepository>();
+            //container.Register<IAutenticacaoApiRepository, AutenticacaoApiRepository>(Lifestyle.Transient);
+
+
+            //container.RegisterWebApiRequest<IUserService, UserService>();
+            //container.Register<IAutenticacaoApiService, AutenticacaoApiService>(Lifestyle.Transient);
+
+            //container.RegisterWebApiRequest<IUnitOfWorkTS, UnitOfWorkTS>();
+            //container.RegisterWebApiRequest<IUnitOfWork, UnitOfWork>();
+            //container.RegisterWebApiRequest<IDomainNotification, DomainNotification>();
         }
     }
 }
